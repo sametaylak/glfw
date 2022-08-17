@@ -1,104 +1,115 @@
 project "GLFW"
-	kind "StaticLib"
-	language "C"
-	staticruntime "off"
+  kind "StaticLib"
+  language "C"
+  staticruntime "off"
 
-	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+  targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+  objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	files
-	{
-		"%{prj.location}/src/context.c",
-		"%{prj.location}/src/egl_context.c",
-		"%{prj.location}/src/egl_context.h",
-		"%{prj.location}/src/init.c",
-		"%{prj.location}/src/input.c",
-		"%{prj.location}/src/internal.h",
-		"%{prj.location}/src/monitor.c",
-		"%{prj.location}/src/osmesa_context.c",
-		"%{prj.location}/src/osmesa_context.h",
-		"%{prj.location}/src/vulkan.c",
-		"%{prj.location}/src/window.c"
-	}
+  files
+  {
+    "include/GLFW/glfw3.h",
+    "include/GLFW/glfw3native.h",
+    "src/internal.h",
+    "src/platform.h",
+    "src/mappings.h",
+    "src/context.c",
+    "src/init.c",
+    "src/input.c",
+    "src/monitor.c",
+    "src/platform.c",
+    "src/vulkan.c",
+    "src/window.c",
+    "src/egl_context.c",
+    "src/osmesa_context.c",
+    "src/null_platform.h",
+    "src/null_joystick.h",
+    "src/null_init.c",
 
-	filter "system:macosx"
-		pic "On"
+    "src/null_monitor.c",
+    "src/null_window.c",
+    "src/null_joystick.c",
+  }
 
-		files
-		{
-			"%{prj.location}/src/cocoa_init.m",
-			"%{prj.location}/src/cocoa_joystick.m",
-			"%{prj.location}/src/cocoa_joystick.h",
-			"%{prj.location}/src/cocoa_monitor.m",
-			"%{prj.location}/src/cocoa_platform.h",
-			"%{prj.location}/src/cocoa_time.c",
-			"%{prj.location}/src/cocoa_window.m",
-			"%{prj.location}/src/nsgl_context.m",
-			"%{prj.location}/src/nsgl_context.h",
-			"%{prj.location}/src/posix_thread.c",
-			"%{prj.location}/src/posix_thread.h"
-		}
+  filter "system:macosx"
+    pic "On"
 
-		defines
-		{
-			"_GLFW_COCOA"
-		}
+    files
+    {
+      "%{prj.location}/src/cocoa_init.m",
+      "%{prj.location}/src/cocoa_joystick.m",
+      "%{prj.location}/src/cocoa_joystick.h",
+      "%{prj.location}/src/cocoa_monitor.m",
+      "%{prj.location}/src/cocoa_platform.h",
+      "%{prj.location}/src/cocoa_time.c",
+      "%{prj.location}/src/cocoa_time.h",
+      "%{prj.location}/src/cocoa_window.m",
+      "%{prj.location}/src/nsgl_context.m",
+      "%{prj.location}/src/posix_thread.c",
+      "%{prj.location}/src/posix_thread.h",
+      "%{prj.location}/src/posix_module.c",
+    }
 
-	filter "system:linux"
-		pic "On"
+    defines
+    {
+      "_GLFW_COCOA"
+    }
 
-		systemversion "latest"
-		
-		files
-		{
-			"src/x11_init.c",
-			"src/x11_monitor.c",
-			"src/x11_window.c",
-			"src/xkb_unicode.c",
-			"src/posix_time.c",
-			"src/posix_thread.c",
-			"src/glx_context.c",
-			"src/egl_context.c",
-			"src/osmesa_context.c",
-			"src/linux_joystick.c"
-		}
+  filter "system:linux"
+    pic "On"
 
-		defines
-		{
-			"_GLFW_X11"
-		}
+    systemversion "latest"
+    
+    files
+    {
+      "src/x11_init.c",
+      "src/x11_monitor.c",
+      "src/x11_window.c",
+      "src/xkb_unicode.c",
+      "src/posix_time.c",
+      "src/posix_thread.c",
+      "src/glx_context.c",
+      "src/egl_context.c",
+      "src/osmesa_context.c",
+      "src/linux_joystick.c"
+    }
 
-	filter "system:windows"
-		systemversion "latest"
+    defines
+    {
+      "_GLFW_X11"
+    }
 
-		files
-		{
-			"src/win32_init.c",
-			"src/win32_joystick.c",
-			"src/win32_monitor.c",
-			"src/win32_time.c",
-			"src/win32_thread.c",
-			"src/win32_window.c",
-			"src/wgl_context.c",
-			"src/egl_context.c",
-			"src/osmesa_context.c"
-		}
+  filter "system:windows"
+    systemversion "latest"
 
-		defines 
-		{ 
-			"_GLFW_WIN32",
-			"_CRT_SECURE_NO_WARNINGS"
-		}
+    files
+    {
+      "src/win32_init.c",
+      "src/win32_joystick.c",
+      "src/win32_monitor.c",
+      "src/win32_time.c",
+      "src/win32_thread.c",
+      "src/win32_window.c",
+      "src/wgl_context.c",
+      "src/egl_context.c",
+      "src/osmesa_context.c"
+    }
 
-		links
-		{
-			"Dwmapi.lib"
-		}
+    defines 
+    { 
+      "_GLFW_WIN32",
+      "_CRT_SECURE_NO_WARNINGS"
+    }
 
-	filter "configurations:Debug"
-		runtime "Debug"
-		symbols "on"
+    links
+    {
+      "Dwmapi.lib"
+    }
 
-	filter "configurations:Release"
-		runtime "Release"
-		optimize "on"
+  filter "configurations:Debug"
+    runtime "Debug"
+    symbols "on"
+
+  filter "configurations:Release"
+    runtime "Release"
+    optimize "on"
