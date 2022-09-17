@@ -126,6 +126,7 @@ video tutorials.
  - lukect
  - Tristam MacDonald
  - Hans Mackowiak
+ - Ramiro Magno
  - Дмитри Малышев
  - Zbigniew Mandziejewicz
  - Adam Marcus
@@ -185,6 +186,7 @@ video tutorials.
  - pthom
  - Martin Pulec
  - Guillaume Racicot
+ - Christian Rauch
  - Philip Rideout
  - Eddie Ringle
  - Max Risuhin
@@ -242,6 +244,7 @@ video tutorials.
  - Torsten Walluhn
  - Patrick Walton
  - Xo Wang
+ - Andre Weissflog
  - Jay Weisskopf
  - Frank Wille
  - Andy Williams
